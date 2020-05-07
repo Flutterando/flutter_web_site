@@ -15,6 +15,8 @@ Flutterando's web site built in Flutter Web
 - Make the PR submitting your branch(write the description of what you done).
 
 What make a PR be refused:
+- Code that doesn't work
+- Code that doesn't solve the problem
 - Write code that's not relationed with the issue.
 - Do not use current project structure(Modular/MobX)
 - Do not make the requested changes from reviewer.
