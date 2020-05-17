@@ -7,25 +7,37 @@ class SquareInformationCardWidget extends StatelessWidget {
   final double height;
   final String title;
   final String description;
-  final String assetPath;
+  final String subtitle;
+  final Widget child;
+  final String buttonLabel;
+  final Color buttonColor;
+  final Color buttonLabelColor;
+  final double buttonLabelSize;
+  final Function onPressed;
 
   const SquareInformationCardWidget({
     Key key,
-    @required this.backgroundColor,
     @required this.height,
+    @required this.backgroundColor,
     this.title,
     this.description,
-    this.assetPath,
-  })  : assert(assetPath != null || title != null,
-            "Either a title or an asset path must be informed"),
-        assert(assetPath != null || description != null,
-            "Either a description text or an asset path must be informed"),
-        assert(height != null, "A height must be informed."),
+    this.child,
+    this.subtitle,
+    this.buttonLabel,
+    this.buttonColor,
+    this.buttonLabelSize,
+    this.buttonLabelColor,
+    this.onPressed,
+  })  : assert(child != null || title != null,
+            'Either a title or a child widget and subtitle must be informed.'),
+        assert(child != null || description != null,
+            'Either a description text or a child widget and subtitle must be informed.'),
+        assert(height != null, 'A height must be informed.'),
+        assert(backgroundColor != null, 'A background color must be informed.'),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       width: 400,
@@ -34,34 +46,27 @@ class SquareInformationCardWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: buildBody(size: size, context: context)),
+          buildBody(cardHeight: this.height, context: context),
           SquareButtonWidget(
-            color: Colors.grey,
-            label: "LOREM IPSUM AMET",
+            color: this.buttonColor,
+            label: this.buttonLabel,
+            fontSize: this.buttonLabelSize,
+            labelColor: this.buttonLabelColor,
+            onPressed: onPressed,
           )
         ],
       ),
     );
   }
 
-  Widget buildBody({Size size, BuildContext context}) {
-    if (this.assetPath != null) {
+  Widget buildBody({double cardHeight, BuildContext context}) {
+    if (this.child != null) {
       return Column(
         children: [
+          this.child,
           Container(
-            height: size.height * .75,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(this.assetPath),
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: Text("Nome da empresa").subtitleSquaredCard(),
-            ),
+            margin: EdgeInsets.only(top: 10),
+            child: Text(this.subtitle ?? '').subtitleSquaredCard(),
           )
         ],
       );
@@ -70,10 +75,11 @@ class SquareInformationCardWidget extends StatelessWidget {
       children: [
         Text(this.title).titleSquaredCard(),
         Container(
-          margin: EdgeInsets.only(top: 40, bottom: 20),
-          width: size.width,
-          height: 2,
-          color: Theme.of(context).fWhiteColorS,
+          margin: EdgeInsets.only(top: 30, bottom: 20),
+          child: Divider(
+            color: Theme.of(context).fWhiteColorS,
+            thickness: 2,
+          ),
         ),
         Text(this.description).bodySquaredCard(),
       ],
