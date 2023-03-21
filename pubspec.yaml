@@ -11,19 +11,19 @@ environment:
 dependencies:
   flutter_icons: ^1.1.0
   shimmer: ^1.1.1
-  google_fonts: ^1.0.0
-  dio: ^3.0.9
-  flutter_mobx: ^1.1.0
-  mobx: ^1.1.1
+  google_fonts: ^4.0.3
+  dio: ^5.0.3
+  flutter_mobx: ^2.0.6+5
+  mobx: ^2.1.4
   flutter_modular: ^1.1.2
   flutter:
     sdk: flutter
 
 
 dev_dependencies:
-  mockito: ^4.1.1
-  mobx_codegen: ^1.0.3
-  build_runner: ^1.9.0
+  mockito: ^5.3.2
+  mobx_codegen: ^2.1.1
+  build_runner: ^2.3.3
   flutter_test:
     sdk: flutter
 
